@@ -30,7 +30,7 @@
 				<div class="no-move"></div>
 			</div>
 			<div class="box-content no-padding">
-				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+				<table style="text-align:center;" class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
 					<thead>
 						<tr>
 							<th>Turno</th>
@@ -38,6 +38,7 @@
 							<th>Usuario</th>
 							<th>Producto</th>
 							<th>Comentarios</th>
+							<th>Estado</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,6 +53,7 @@
 						<td>".$row[1]."</td>
 						<td>".$row[4]."</td>
 						<td>".$row[3]."</td>
+						<td><input type='button' class='btn btn-success' value='Atender'></td>
 						</tr>";
 					}
 					?>
