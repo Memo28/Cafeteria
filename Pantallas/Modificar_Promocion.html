@@ -14,7 +14,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-usd"></i>
-					<span>Pedidos del Dia</span>
+					<span>Productos</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -33,28 +33,29 @@
 				<table style="text-align:center;" class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
 					<thead>
 						<tr>
-							<th>Turno</th>
-							<th>Hora</th>
-							<th>Usuario</th>
+							<th>Imagen</th>
 							<th>Producto</th>
-							<th>Comentarios</th>
-							<th>Estado</th>
+							<th>Precio</th>
+							<th>Vigencia</th>
+							<th>Condiciones</th>
+							<th>Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
 					$conn = mysqli_connect('localhost','root','','cafe_fcc');
-					$sql = "SELECT * FROM orden ";
+					$sql = "SELECT * FROM producto ";
 					$result = mysqli_query($conn,$sql);
 					while($row = mysqli_fetch_array($result)){
 						echo "<tr>
-						<td>".$row[2]."</td>
+						<td><img src='coca.png' width='42' height='42'/></td>
 						<td>".$row[0]."</td>
 						<td>".$row[1]."</td>
-						<td>".$row[4]."</td>
-						<td>".$row[3]."</td>
-						<td><input type='button' class='btn btn-success' value='Atender'></td>
-						</tr>";
+						<td>$".$row[2]."</td>
+						<td>$".$row[2]."</td>
+						<td><i class='fa fa-times'></i></td>
+						</tr>"
+						;
 					}
 					?>
 					</tbody>
