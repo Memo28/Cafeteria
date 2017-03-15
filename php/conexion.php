@@ -2,7 +2,7 @@
 function Conectarse(){
 	// datos para la conexion a mysql
 	$hostname = 'localhost';
-	$database = 'cafe_fcc';
+	$database = 'guiaturu_cafeteria';
 	$username = 'root';
 	$password = '';	
 	$mysqli = new mysqli($hostname, $username,$password, $database);

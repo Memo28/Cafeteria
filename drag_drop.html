@@ -19,8 +19,8 @@
     <a >Pendientes</a>
       <ul class="connected-sortable droppable-area1">
       <?php
-          $conn = mysqli_connect('localhost','root','','cafe_fcc');
-          $sql = "SELECT * FROM orden ";
+          $conn = mysqli_connect('localhost','root','','guiaturu_cafeteria');
+          $sql = "SELECT * FROM pedido ";
           $result = mysqli_query($conn,$sql);
           while($row =  mysqli_fetch_array($result)){
           echo"

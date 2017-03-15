@@ -1,3 +1,7 @@
+<!-- Esta pagina es la presentacion para las funciones de modificar y eliminar productos, para editar al pulsar el boton editar de las tablas se hace un llamado Jquery a una funcion en donde se le pasan los datos que se pueden editar, una vez que se confirmaron los datos, se pasan al archivo "modificar_producto.php" que es donde se conectan a la BD y se hacen las modificacion.
+Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde se le confirma al usuario si desea eliminar el producto si lo acepta se manda la peteicion a "eliminar_producto.php" que es donde se hace la peticion a la BD para eliminar el producto.
+-->
+
 <div class="row">
 	<div id="breadcrumb" class="col-xs-12">
 		<a href="#" class="show-sidebar">
@@ -7,6 +11,34 @@
 			<li><a href="#">Pedidos</a></li>
 		</ol>
 	</div>
+
+<!-- Modal  de Eliminar-->
+  <div class="modal fade" id="myModal_delete" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Eliminar Producto</h4>
+        </div>
+        <div class="box-content ">
+        	<form class="form-horizontal " role="form" action="php/CRUD_Productos/eliminar_producto.php" method="POST" enctype="multipart/form-data">
+        	<div class="form-group">
+        		<label class="col-sm-9 control-label">¿Esta Seguro que desea eliminar el producto?*</label>
+			</div>
+			     <div class="col-sm-4">
+					<input type="text" class=" form-control"  name="producto" id="producto"  readonly>
+			</div>
+
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger" href="">Eliminar</button>
+			</form>
+        </div>
+    </div>
+  </div>
+
+
 </div>
 <div class="row">
 	<div class="col-xs-12">
@@ -38,22 +70,26 @@
 							<th>Tipo</th>
 							<th>Precio</th>
 							<th>Cantidad</th>
+							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
-					$conn = mysqli_connect('localhost','root','','cafe_fcc');
+					include("../php/conexion.php");
+					$link = Conectarse();
 					$sql = "SELECT * FROM producto ";
-					$result = mysqli_query($conn,$sql);
+					$result = mysqli_query($link,$sql);
 					while($row = mysqli_fetch_array($result)){
+						$img = $row[6];
 						echo "<tr>
-						<td><img src='coca.png' width='42' height='42'/></td>
+						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
 						<td>".$row[0]."</td>
+						<td>".$row[3]."</td>
+						<td>$".$row[4]."</td>
 						<td>".$row[1]."</td>
-						<td>$".$row[2]."</td>
-						<td><input type='number' value='".$row[4]."' min='1' max='999'></td>
-						<td><i class='fa fa-times'></i></td>
+						<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[0]."' data-precio='".$row[4]."' data-cantidad='".$row[1]."' data-tipo='".$row[3]."' ><i class='fa fa-pencil'></i>      Editar   </button></td>
+						<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[0]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
 						</tr>"
 						;
 					}
@@ -61,9 +97,71 @@
 					</tbody>
 					</table>
 			</div>
+			<form class="form-horizontal" role ="form">
+				<div class="form-group">
+					<div class="col-sm-offset-6 col-sm-8">
+						<button type="submit" class="btn btn-primary btn-label-left">Enviar</button>
+					</div>
+				</div>
+			</form>
+
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal  de Editar-->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar Producto</h4>
+        </div>
+        <div class="box-content">
+        	<form class="form-horizontal" role="form" action="php/CRUD_Productos/modificar_productos.php" method="POST" enctype="multipart/form-data">
+        	<div class="form-group">
+        		<label class="col-sm-2 control-label">Producto*</label>
+        		<div class="col-sm-4">
+					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="producto" id="producto" required="">
+				</div>
+				<label class="col-sm-2 control-label" hidden="true">Producto*</label>
+        		<div class="col-sm-4" hidden="true">
+					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="producto_actual" id="producto_actual" required="" hidden="true">
+				</div>
+				<label class="col-sm-2 control-label">Precio*</label>
+				 <div class="col-sm-4">
+					<input type="number" min="0" max="999" class="form-control" placeholder="Precio Ofertado" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="precio" id="precio" required="">
+				</div>
+			</div>
+
+        	<div class="form-group">
+        		<label class="col-sm-2 control-label">Cantidad*</label>
+        		<div class="col-sm-4">
+					<input type="number" min="0" max="999" class="form-control" placeholder="Numero de Productos" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="cantidad" id="cantidad" required="">
+				</div>
+				<label class="col-sm-2 control-label">Tipo*</label>
+							<div class="col-sm-4">
+								<select class="populate placeholder" name="t_producto" id="t_producto">
+									<option value="">-- Selecccione el tipo --</option>
+									<option value="Bebida">Bebida</option>
+									<option value="Comida">Comida</option>
+									<option value="Postre">Postre</option>
+									<option value="Otro">Otro</option>
+								</select>
+							</div>
+			</div>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default" href="">Guardar</button>
+			</form>
+        </div>
+    </div>
+  </div>
+
+
+
 
 <script type="text/javascript">
 // Run Datables plugin and create 3 variants of settings
@@ -84,5 +182,25 @@ $(document).ready(function() {
 	LoadDataTablesScripts(AllTables);
 	// Add Drag-n-Drop feature
 	WinMove();
+});
+//Paso de parametros a la ventana modal editar
+$(document).on("click", ".open-Modal", function () {
+	var myproducto = $(this).data('id');
+	var myprecio = $(this).data('precio');
+	var mycantidad = $(this).data('cantidad');
+	var mytipo = $(this).data('tipo');
+	var myid_real = $(this).data('id');
+	$(".modal-content #producto").val( myproducto );
+	$(".modal-content #precio").val( myprecio );
+	$(".modal-content #cantidad").val( mycantidad );
+	$(".modal-content #t_producto").val( mytipo );
+	$(".modal-content #producto_actual").val( myid_real );
+});
+
+
+//Paso de parametros a la ventana modal editar
+$(document).on("click", ".open-Modal_delete", function () {
+	var myproducto = $(this).data('id');
+	$(".modal-content #producto").val( myproducto );
 });
 </script>

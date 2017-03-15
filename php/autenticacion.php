@@ -7,7 +7,7 @@
 	$link = Conectarse();
 	$email = mysqli_real_escape_string($link,$email);
 	$pass = mysqli_real_escape_string($link,$password);
-	$query = "SELECT * FROM usuario WHERE email= '$email' AND password= '$password'";
+	$query = "SELECT * FROM usuarios WHERE correo= '$email' AND password= '$password'";
 	$run_user = mysqli_query($link, $query);
 	$check_user = mysqli_num_rows($run_user);
 

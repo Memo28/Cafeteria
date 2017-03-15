@@ -38,22 +38,26 @@
 							<th>Producto</th>
 							<th>Tipo</th>
 							<th>Precio</th>
+							<th>Fecha</th>
 							<th>Calificacion</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
-					$conn = mysqli_connect('localhost','root','','cafe_fcc');
+					include("../php/conexion.php");
+					$link = Conectarse();
 					$sql = "SELECT * FROM producto ";
-					$result = mysqli_query($conn,$sql);
+					$result = mysqli_query($link,$sql);
 					while($row = mysqli_fetch_array($result)){
+						$img = $row[6];  
 						echo "<tr>
-						<td><img src='coca.png' width='42' height='42'/></td>
-						<td>".$row[4]."</td>
-						<td>".$row[0]."</td>
+						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
 						<td>".$row[1]."</td>
-						<td>$".$row[2]."</td>
-						<td>0</td>
+						<td>".$row[0]."</td>
+						<td>".$row[3]."</td>
+						<td>$".$row[4]."</td>
+						<td>".$row[2]."</td>
+						<td>".$row[5]."</td>
 						</tr>"
 						;
 					}
