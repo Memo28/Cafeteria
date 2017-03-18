@@ -4,7 +4,7 @@
 			<i class="fa fa-bars"></i>
 		</a>
 		<ol class="breadcrumb pull-left">
-			<li><a href="#">Pedidos</a></li>
+			<li><a href="#">Paquetes</a></li>
 		</ol>
 	</div>
 </div>
@@ -14,7 +14,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-usd"></i>
-					<span>Productos</span>
+					<span>Paquetes</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -34,16 +34,13 @@
 					<thead>
 						<tr>
 							<th>Imagen</th>
-							<th>Cantidad</th>
-							<th>Producto</th>
-							<th>Tipo</th>
+							<th>Productos</th>
 							<th>Precio</th>
-							<th>Fecha</th>
 							<th>Calificacion</th>
 						</tr>
 					</thead>
 					<tbody>
-					<?php
+<!--					<?php
 					include("../php/conexion.php");
 					$link = Conectarse();
 					$sql = "SELECT * FROM producto ";
@@ -55,13 +52,14 @@
 						<td>".$row[1]."</td>
 						<td>".$row[0]."</td>
 						<td>".$row[3]."</td>
-						<td>$".$row[4]."</td>
-						<td>".$row[2]."</td>
-						<td>".$row[5]."</td>
 						</tr>"
 						;
 					}
-					?>
+					?>-->
+					<td><img src='../cafeteria/fotos/sample_0.jpg' width='42' height='42'/></td>
+					<td>Torta Jamon + Refresco</td>
+					<td>$22</td>
+					<td>1</td>
 					</tbody>
 					</table>
 			</div>

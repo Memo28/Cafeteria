@@ -44,7 +44,7 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-usd"></i>
-					<span>Productos</span>
+					<span>Paquetes</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -64,16 +64,15 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
 					<thead>
 						<tr>
 							<th>Imagen</th>
-							<th>Producto</th>
-							<th>Tipo</th>
+							<th>Productos</th>
 							<th>Precio</th>
-							<th>Cantidad</th>
+							<th>Calificacion</th>
 							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
-					<?php
+<!--					<?php
 					include("../php/conexion.php");
 					$link = Conectarse();
 					$sql = "SELECT * FROM producto ";
@@ -91,7 +90,14 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
 						</tr>"
 						;
 					}
-					?>
+					?>-->
+					<td><img src='../cafeteria/fotos/sample_0.jpg' width='42' height='42'/></td>
+					<td>Torta Jamon + Refresco</td>
+					<td>$22</td>
+					<td>1</td>
+					<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[0]."' data-precio='".$row[4]."' data-cantidad='".$row[1]."' data-tipo='".$row[3]."' ><i class='fa fa-pencil'></i>      Editar   </button></td>
+					<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[0]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
+						</tr>
 					</tbody>
 					</table>
 			</div>

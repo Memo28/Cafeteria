@@ -7,6 +7,33 @@
 			<li><a href="#">Pedidos</a></li>
 		</ol>
 	</div>
+
+<!-- Modal  de Eliminar-->
+  <div class="modal fade" id="myModal_delete" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Eliminar Promocion</h4>
+        </div>
+        <div class="box-content ">
+        	<form class="form-horizontal " role="form" action="php/CRUD_Promocion/eliminar_promociones.php" method="POST" enctype="multipart/form-data">
+        	<div class="form-group">
+        		<label class="col-sm-9 control-label">¿Esta Seguro que desea eliminar la promocion?*</label>
+			</div>
+			     <div class="col-sm-4">
+					<input type="text" class=" form-control" name="promocion" id="promocion"  readonly>
+			</div>
+
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger" href="">Eliminar</button>
+			</form>
+        </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
@@ -38,22 +65,25 @@
 							<th>Precio</th>
 							<th>Vigencia</th>
 							<th>Condiciones</th>
+							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
-					$conn = mysqli_connect('localhost','root','','cafe_fcc');
-					$sql = "SELECT * FROM producto ";
+					$conn = mysqli_connect('localhost','root','','guiaturu_cafeteria');
+					$sql = "SELECT * FROM promociones ";
 					$result = mysqli_query($conn,$sql);
 					while($row = mysqli_fetch_array($result)){
+						$img = $row[5];  
 						echo "<tr>
-						<td><img src='coca.png' width='42' height='42'/></td>
-						<td>".$row[0]."</td>
+						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
 						<td>".$row[1]."</td>
 						<td>$".$row[2]."</td>
-						<td>$".$row[2]."</td>
-						<td><i class='fa fa-times'></i></td>
+						<td>".$row[3]."</td>
+						<td>".$row[4]."</td>
+						<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[1]."' data-precio='".$row[2]."' data-vigencia='".$row[3]."' data-condiciones='".$row[4]."' ><i class='fa fa-pencil'></i>      Editar   </button></td>
+						<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[1]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
 						</tr>"
 						;
 					}
@@ -64,6 +94,51 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal  de Editar-->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar Promocion</h4>
+        </div>
+        <div class="box-content">
+        	<form class="form-horizontal" role="form" action="php/CRUD_Promocion/modificar_promociones.php" method="POST" enctype="multipart/form-data">
+        	<div class="form-group">
+        		<label class="col-sm-2 control-label">Promocion*</label>
+        		<div class="col-sm-4">
+					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="promocion" id="promocion" required="">
+				</div>
+				<div class="col-sm-4" hidden="true"> 
+				 <label class="col-sm-2 control-label" hidden="true>Promocion*</label>
+        		<div class="col-sm-4" hidden="true">
+					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="promocion_aux" id="promocion_aux" required="" hidden="true">
+				</div>
+				<label class="col-sm-2 control-label">Precio*</label>
+				 <div class="col-sm-4">
+					<input type="number" min="0" max="999" class="form-control" placeholder="Precio Ofertado" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="precio" id="precio" required="">
+				</div>
+			</div>
+
+        	<div class="form-group">
+        		<label class="col-sm-2 control-label">Vigencia*</label>
+        		<div class="col-sm-4">
+					<input type="date"  class="form-control" placeholder="Fecha de Vigencia " data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="vigencia" id="vigencia" required="">
+				</div>
+				 <label class="col-sm-2 control-label">Condiciones*</label>
+        		<div class="col-sm-4">
+					<input type="text" min="0" max="999" class="form-control" placeholder="Condiciones de la Promocion" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="condiciones" id="condiciones" required="">
+				</div>
+			</div>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default" href="">Guardar</button>
+			</form>
+        </div>
+    </div>
+  </div>
 
 <script type="text/javascript">
 // Run Datables plugin and create 3 variants of settings
@@ -79,6 +154,25 @@ function MakeSelect2(){
 		$(this).find('label input[type=text]').attr('placeholder', 'Search');
 	});
 }
+
+//Paso de parametros a la ventana modal editar
+$(document).on("click", ".open-Modal", function () {
+	var mypromocion = $(this).data('id');
+	var myprecio = $(this).data('precio');
+	var myvigencia = $(this).data('vigencia');
+	var mycondiciones = $(this).data('condiciones');
+	$(".modal-content #promocion").val( mypromocion );
+	$(".modal-content #promocion_aux").val( mypromocion );
+	$(".modal-content #precio").val( myprecio );
+	$(".modal-content #vigencia").val( myvigencia );
+	$(".modal-content #condiciones").val( mycondiciones );
+});
+//Paso de parametros a la ventana modal editar
+$(document).on("click", ".open-Modal_delete", function () {
+	var mypromocion = $(this).data('id');
+	$(".modal-content #promocion").val( mypromocion );
+});
+
 $(document).ready(function() {
 	// Load Datatables and run plugin on tables 
 	LoadDataTablesScripts(AllTables);

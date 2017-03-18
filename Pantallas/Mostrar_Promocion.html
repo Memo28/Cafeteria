@@ -34,7 +34,7 @@
 					<thead>
 						<tr>
 							<th>Imagen</th>
-							<th>Productos</th>
+							<th>Promocion</th>
 							<th>Precio</th>
 							<th>Vigencia</th>
 							<th>Codiciones</th>
@@ -42,9 +42,20 @@
 					</thead>
 					<tbody>
 					<?php
-					$conn = mysqli_connect('localhost','root','','cafe_fcc');
-					$sql = "SELECT * FROM producto ";
+					$conn = mysqli_connect('localhost','root','','guiaturu_cafeteria');
+					$sql = "SELECT * FROM promociones ";
 					$result = mysqli_query($conn,$sql);
+					while($row = mysqli_fetch_array($result)){
+						$img = $row[5];  
+						echo "<tr>
+						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
+						<td>".$row[1]."</td>
+						<td>$".$row[2]."</td>
+						<td>".$row[3]."</td>
+						<td>".$row[4]."</td>
+						</tr>"
+						;
+					}
 					?>
 					</tbody>
 					</table>

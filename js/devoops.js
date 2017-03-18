@@ -2270,6 +2270,40 @@ function xGraph2(){
 	};
 	var myChart = new xChart('bar', data, '#xchart-2');
 }
+
+//
+// Graph3 created in element with id = xchart_diarios
+//
+function xGraph2_Diarios(){
+	var data = {
+	"xScale": "ordinal",
+	"yScale": "linear",
+	"main": [
+		{
+		"className": ".xchart-class-2",
+		"data": [
+			{
+			  "x": "Apple",
+			  "y": 575
+			},
+			{
+			  "x": "Facebook",
+			  "y": 163
+			},
+			{
+			  "x": "Microsoft",
+			  "y": 303
+			},
+			{
+			  "x": "Cisco",
+			  "y": 121
+			}
+		]
+		}
+		]
+	};
+	var myChart = new xChart('bar', data, '#xchart_diarios');
+}
 //
 // Graph3 created in element with id = xchart-3
 //
