@@ -40,26 +40,22 @@
 						</tr>
 					</thead>
 					<tbody>
-<!--					<?php
+					<?php
 					include("../php/conexion.php");
 					$link = Conectarse();
-					$sql = "SELECT * FROM producto ";
+					$sql = "SELECT * FROM paquetes ";
 					$result = mysqli_query($link,$sql);
 					while($row = mysqli_fetch_array($result)){
-						$img = $row[6];  
+						$img = $row[4];  
 						echo "<tr>
 						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
 						<td>".$row[1]."</td>
-						<td>".$row[0]."</td>
+						<td>".$row[2]."</td>
 						<td>".$row[3]."</td>
 						</tr>"
 						;
 					}
-					?>-->
-					<td><img src='../cafeteria/fotos/sample_0.jpg' width='42' height='42'/></td>
-					<td>Torta Jamon + Refresco</td>
-					<td>$22</td>
-					<td>1</td>
+					?>
 					</tbody>
 					</table>
 			</div>

@@ -20,10 +20,10 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Eliminar Producto</h4>
+          <h4 class="modal-title">Eliminar Paquete</h4>
         </div>
         <div class="box-content ">
-        	<form class="form-horizontal " role="form" action="php/CRUD_Productos/eliminar_producto.php" method="POST" enctype="multipart/form-data">
+        	<form class="form-horizontal " role="form" action="php/CRUD_Paquetes/eliminar_paquetes.php" method="POST" enctype="multipart/form-data">
         	<div class="form-group">
         		<label class="col-sm-9 control-label">¿Esta Seguro que desea eliminar el producto?*</label>
 			</div>
@@ -72,32 +72,24 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
 						</tr>
 					</thead>
 					<tbody>
-<!--					<?php
+					<?php
 					include("../php/conexion.php");
 					$link = Conectarse();
-					$sql = "SELECT * FROM producto ";
+					$sql = "SELECT * FROM paquetes ";
 					$result = mysqli_query($link,$sql);
 					while($row = mysqli_fetch_array($result)){
-						$img = $row[6];
+						$img = $row[4];  
 						echo "<tr>
 						<td><img src='../cafeteria/fotos/".$img."' width='42' height='42'/></td>
-						<td>".$row[0]."</td>
-						<td>".$row[3]."</td>
-						<td>$".$row[4]."</td>
 						<td>".$row[1]."</td>
-						<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[0]."' data-precio='".$row[4]."' data-cantidad='".$row[1]."' data-tipo='".$row[3]."' ><i class='fa fa-pencil'></i>      Editar   </button></td>
-						<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[0]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
+						<td>".$row[2]."</td>
+						<td>".$row[3]."</td>
+						<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[1]."' data-precio='".$row[2]."'  ><i class='fa fa-pencil'></i>      Editar   </button></td>
+						<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[1]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
 						</tr>"
 						;
 					}
-					?>-->
-					<td><img src='../cafeteria/fotos/sample_0.jpg' width='42' height='42'/></td>
-					<td>Torta Jamon + Refresco</td>
-					<td>$22</td>
-					<td>1</td>
-					<td><button type='button' class='open-Modal btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal' data-id='".$row[0]."' data-precio='".$row[4]."' data-cantidad='".$row[1]."' data-tipo='".$row[3]."' ><i class='fa fa-pencil'></i>      Editar   </button></td>
-					<td><button type='button' class='open-Modal btn btn-danger btn-lg' data-toggle='modal' data-target='#myModal_delete' data-id='".$row[0]."' ><i class='fa fa-trash'></i>Eliminar</button></td>
-						</tr>
+					?>
 					</tbody>
 					</table>
 			</div>
@@ -115,42 +107,25 @@ Para el metodo de eliminar se lanza la ventana modal "myModa_delet" que es donde
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Editar Producto</h4>
+          <h4 class="modal-title">Editar Paquetes</h4>
         </div>
         <div class="box-content">
-        	<form class="form-horizontal" role="form" action="php/CRUD_Productos/modificar_productos.php" method="POST" enctype="multipart/form-data">
+        	<form class="form-horizontal" role="form" action="php/CRUD_Paquetes/modificar_paquetes.php" method="POST" enctype="multipart/form-data">
         	<div class="form-group">
-        		<label class="col-sm-2 control-label">Producto*</label>
+        		<label class="col-sm-2 control-label">Productos*</label>
         		<div class="col-sm-4">
 					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="producto" id="producto" required="">
 				</div>
-				<label class="col-sm-2 control-label" hidden="true">Producto*</label>
+				<label class="col-sm-2 control-label" hidden="true">Productos*</label>
         		<div class="col-sm-4" hidden="true">
-					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="producto_actual" id="producto_actual" required="" hidden="true">
+					<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="productos_actual" id="productos_actual"  hidden="true">
 				</div>
 				<label class="col-sm-2 control-label">Precio*</label>
 				 <div class="col-sm-4">
 					<input type="number" min="0" max="999" class="form-control" placeholder="Precio Ofertado" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="precio" id="precio" required="">
 				</div>
 			</div>
-
-        	<div class="form-group">
-        		<label class="col-sm-2 control-label">Cantidad*</label>
-        		<div class="col-sm-4">
-					<input type="number" min="0" max="999" class="form-control" placeholder="Numero de Productos" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="cantidad" id="cantidad" required="">
-				</div>
-				<label class="col-sm-2 control-label">Tipo*</label>
-							<div class="col-sm-4">
-								<select class="populate placeholder" name="t_producto" id="t_producto">
-									<option value="">-- Selecccione el tipo --</option>
-									<option value="Bebida">Bebida</option>
-									<option value="Comida">Comida</option>
-									<option value="Postre">Postre</option>
-									<option value="Otro">Otro</option>
-								</select>
-							</div>
-			</div>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-default" href="">Guardar</button>
 			</form>
         </div>
@@ -184,18 +159,13 @@ $(document).ready(function() {
 $(document).on("click", ".open-Modal", function () {
 	var myproducto = $(this).data('id');
 	var myprecio = $(this).data('precio');
-	var mycantidad = $(this).data('cantidad');
-	var mytipo = $(this).data('tipo');
-	var myid_real = $(this).data('id');
 	$(".modal-content #producto").val( myproducto );
+	$(".modal-content #productos_actual").val( myproducto );
 	$(".modal-content #precio").val( myprecio );
-	$(".modal-content #cantidad").val( mycantidad );
-	$(".modal-content #t_producto").val( mytipo );
-	$(".modal-content #producto_actual").val( myid_real );
 });
 
 
-//Paso de parametros a la ventana modal editar
+//Paso de parametros a la ventana modal borrar
 $(document).on("click", ".open-Modal_delete", function () {
 	var myproducto = $(this).data('id');
 	$(".modal-content #producto").val( myproducto );

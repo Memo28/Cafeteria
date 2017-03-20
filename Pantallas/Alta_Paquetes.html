@@ -1,3 +1,4 @@
+<link href="plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
 <div class="row">
 	<div id="breadcrumb" class="col-xs-12">
 		<a href="#" class="show-sidebar">
@@ -39,34 +40,102 @@
 				<div class="no-move"></div>
 			</div>
 			<div class="box-content">
-				<h4 class="page-header">Agregar Producto</h4>
-				<form class="form-horizontal" role="form" action="php/CRUD_Productos/alta_productos.php" method="POST" enctype="multipart/form-data">
+				<h4 class="page-header">Agregar Paquetes</h4>
+				<form class="form-horizontal" role="form" action="php/CRUD_Paquetes/alta_paquetes.php" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Producto*</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" placeholder="Nombre del Producto" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" name="producto" id="producto" required="">
+					            <select data-placeholder="Seleccione los Productos" multiple class="form-control chosen-select" tabindex="8"  name="paquete" id="paquete" required>
+					              <option value=""></option>
+					             <option value="2">2</option>
+					              <option value="3">3</option>
+					              <option value="4">4</option>
+					              	<?php
+										include("../php/conexion.php");
+										$link = Conectarse();
+										$sql = "SELECT * FROM producto ";
+										$result = mysqli_query($link,$sql);
+										while($row = mysqli_fetch_array($result)){
+										echo"<option value='".$row[0]."'>".$row[0]."</option>";
+										}
+										?>
+					              <option>+</option>
+								  <option>2</option>
+					              <option>3</option>
+					              <option>4</option>
+					              <option>+</option>
+					           	  <option>2</option>
+					              <option>3</option>
+					              <option>4</option>
+					              <option>+</option>
+					            </select>
 						</div>
-						<label class="col-sm-2 control-label">Cantidad*</label>
+						<label class="col-sm-2 control-label">Precio*</label>
 						<div class="col-sm-4">
-							<input type="number" min="1" max="1000" class="form-control" placeholder="Numero de Productos" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name" name="cantidad" id="cantidad" required="">
+							<input type="number" min="1" max="1000" class="form-control" placeholder="Costo de la Promocion" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name" name="precio" id="precio" required="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Foto</label>
 						<div class="col-sm-2">
-							<input type="file" accept="image/*" name="foto" id="foto" >
+							<input type="file" accept="image/*" name="foto" id="foto" required="">
+						</div>
+						<label class="col-sm-4 control-label" hidden="true">Lista_Productos*</label>
+						<div class="col-sm-4" hidden="true">
+							<input type="text" min="1" max="1000" class="form-control" placeholder="Costo de la Promocion" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name" name="lista_productos" id="lista_productos" required="" hidden="true">
 						</div>
 					</div>
 					<div class="form-group has-success has-feedback">
 						<div class="col-sm-offset-2 col-sm-8">
-						<button type="submit" class="btn btn-primary btn-label-left" href="">
+						<button type="submit" class="btn btn-primary btn-label-left" href="" id="submit">
 						<span><i class="fa fa-check-circle-o"></i></span>
 							Submit
 						</button>
 					</div>
 					</div>
+					<div class="muestra"></div>
 				</form>
 			</div>
 		</div>
-	</div>
+	</div>	
 </div>
+<!--<script src="plugins/chosen/chosen.jquery.min.js"></script>-->
+<script src="http://labo.tristan-jahier.fr/chosen_order/chosen.order.jquery.min.js"></script>
+<script type="text/javascript">
+	//ocupamos chosen para el uso de tags
+	var valor = "";
+	$('.chosen-select').chosen({	
+
+	});
+
+	//Ocupamos la libreria "chosen_orden" para poder pasar los elementos seleecionados en el <select> de forma ordenada y no de la manera en la que estan ocupados 
+	$("#paquete").chosen();
+
+	$("#paquete").change(function() {
+
+	  // obtenemos los parámetros y los ordenamos
+	  var serializedForm = $("select").serializeArray();
+	  var orderedValues = ChosenOrder.getSelectionOrder( $("#paquete") );
+	  console.log("ANTES DE ORDENAR SE ENVIARÍA:");
+  	  console.log(JSON.stringify(serializedForm));
+  
+	  var x = 0;
+	  var y = 0;
+	  while (x < serializedForm.length) {
+	    if (serializedForm[x].name == "paquete") {
+	      serializedForm[x].value = orderedValues[y];
+	      y++;
+	    }
+	    x++;
+	  }
+	  
+	  console.log("DESPUÉS DE ORDENAR SE ENVÍA:");
+	  console.log(JSON.stringify(serializedForm));
+	  var final = JSON.stringify(serializedForm);
+	  document.getElementById("lista_productos").value="";
+	  document.getElementById("lista_productos").value=final;
+
+
+	  });
+
+</script>

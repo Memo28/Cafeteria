@@ -1,5 +1,5 @@
 <?php
-/*Este archivo nos servira para poder agregar los datos de una nueva promocion a la bd @promocion,@precio,@vigencia,@condiciones,@foto son paramentros que viene de la pantalla anterior "Alta_Producto" a traves de un metodo POST, para el guardado de la imagen lo que se hace es agregarla a la carpeta de fotos que se encuentra en la raiz de los archivos, ahí es donde se almacenaran las fotos de los productos.
+/*Este archivo nos servira para poder agregar los datos de una nueva promocion a la bd @promocion,@precio,@vigencia,@condiciones,@foto son paramentros que viene de la pantalla anterior "Alta_Promociones" a traves de un metodo POST, para el guardado de la imagen lo que se hace es agregarla a la carpeta de fotos que se encuentra en la raiz de los archivos, ahí es donde se almacenaran las fotos de los productos.
 */
 	include ("../conexion.php");
 	$promocion = $_POST["promocion"];
