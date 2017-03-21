@@ -1,0 +1,134 @@
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<a href="#" class="show-sidebar">
+			<i class="fa fa-bars"></i>
+		</a>
+		<ol class="breadcrumb pull-left">
+			<li><a href="index.html">Dashboard</a></li>
+			<li><a href="#">Charts</a></li>
+			<li><a href="#">xCharts</a></li>
+		</ol>
+		<div id="social" class="pull-right">
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-linkedin"></i></a>
+			<a href="#"><i class="fa fa-youtube"></i></a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 ">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-search"></i>
+					<span>Ingresos Diarios</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a class="close-link">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+					<figure style="width: 900px; height: 400px;" id="myChart"></figure>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Obtenemos la fecha de hoy y le restamos los 7 dias de la semana para hacer la consulta y guardamos las fechas en @semana, luego hacemos la conexion a la BD y para ir almacenando los valores recorremos con el for y lo guardamos en @totales, luego esas variables se las pasamos a js para graficarlas con el plugin de xChart -->
+<?php
+	include("../php/conexion.php");
+	$link = Conectarse();
+
+	$t = time();
+	$fecha=date("Y-m-d",$t);
+
+	$semana = array();
+	$totales = array();
+
+	for ($i = 0; $i<9;$i++){
+		$nuevafecha = strtotime ( "-$i day" , strtotime ( $fecha ) ) ;
+		$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+		array_push($semana, $nuevafecha);
+
+	}
+
+	//Consulta para las fechas 
+	for ($i=0;$i<9;$i++){
+		$total = 0;	
+		$query = "SELECT * FROM ventas WHERE ventas.fecha = '$semana[$i]'";	
+		$result=mysqli_query($link,$query);
+		while($row= mysqli_fetch_array($result)){
+			$total = $total + $row[1];
+		}
+		array_push($totales, $total);
+
+	}
+	$max = max($totales);
+?>
+
+<script src="plugins/xcharts/xcharts.min.js"></script>
+<script src="plugins/d3/d3.min.js"></script>
+<script type="text/javascript">
+
+var m = '<?php echo $max; ?>';
+	var data = {
+		  "xScale": "ordinal",
+		  "yScale": "linear",
+		  "yMin" : "0",
+		  "yMax" : m,
+		  "main": [
+		    {
+		      "className": ".ventas",
+		      "data": [
+		        {
+		          "x": '<?php echo $semana[0]; ?>',
+		          "y": '<?php echo $totales[0]; ?>'
+		        },
+				{
+				  "x": '<?php echo $semana[1]; ?>',
+				  "y": '<?php echo $totales[1]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[2]; ?>',
+				  "y": '<?php echo $totales[2]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[3]; ?>',
+				  "y": '<?php echo $totales[3]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[4]; ?>',
+				  "y": '<?php echo $totales[4]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[5]; ?>',
+				  "y": '<?php echo $totales[5]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[6]; ?>',
+				  "y": '<?php echo $totales[6]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[7]; ?>',
+				  "y": '<?php echo $totales[7]; ?>'
+				},
+				{
+				  "x": '<?php echo $semana[8]; ?>',
+				  "y": '<?php echo $totales[8]; ?>'
+				},
+		      ]
+		    }
+		  ]
+		};
+var myChart = new xChart('bar', data, '#myChart');
+</script>
