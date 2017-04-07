@@ -24,7 +24,7 @@
           $result = mysqli_query($conn,$sql);
           while($row =  mysqli_fetch_array($result)){
           echo"
-            <li class='draggable-item'>Pedido: ".$row[4]."</br> Comentarios:  ".$row[3]."</li>
+            <li class='draggable-item'>Pedido: ".$row[0]."</br> Comentarios:  ".$row[2]."</li>
             ";
           }
       ?>

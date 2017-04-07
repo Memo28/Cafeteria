@@ -1,0 +1,68 @@
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<a href="#" class="show-sidebar">
+			<i class="fa fa-bars"></i>
+		</a>
+		<ol class="breadcrumb pull-left">
+			<li><a href="index.html">Sucursales</a></li>
+			<li><a href="#">CU</a></li>
+		</ol>
+		<div id="social" class="pull-right">
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-linkedin"></i></a>
+			<a href="#"><i class="fa fa-youtube"></i></a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-map-marker"></i>
+					<span>Google sattelite</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a class="close-link">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div id="map" style="  height: 400px; width: 100%;"></div>
+				 <!-- Replace the value of the key parameter with your own API key. -->
+				<script async defer
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHhM-ydzznfSZDJ79pSKbKdhqhObmXg9U&callback=initMap">
+				</script>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	function initMap() {
+  var compu = {lat: 19.005283, lng: -98.205140};
+  var fis = {lat: 19.003379, lng: -98.201939};
+  var center = {lat: 19.003896,lng: -98.203667}
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 17,
+    center: center
+  });
+  var marker = new google.maps.Marker({
+    position: compu,
+    map: map
+  });
+  var marker_2 = new google.maps.Marker({
+    position: fis,
+    map: map
+  });
+}	
+</script>
